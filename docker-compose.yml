@@ -1,0 +1,8 @@
+db:
+   image: mysql
+   environment: 
+      - MYSQL_ROOT_PASSWORD=root
+   volumes:
+      - /home/fjunqueira/docker/blog-alura/database/:/var/lib/mysql/
+   ports:
+      - 3306:3306
