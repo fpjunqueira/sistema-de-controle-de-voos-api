@@ -1,5 +1,6 @@
 package org.controlador.api.rest.dto;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,6 +16,9 @@ public class VooDTO {
 	private AeroportoDTO origem;
 	private AeroportoDTO destino;
 	private String status;
+
+	public VooDTO() {
+	}
 
 	public Long getId() {
 		return id;
@@ -99,15 +103,7 @@ public class VooDTO {
 	public String getHorarioDePartidaUTC() {
 		return formatarData(this.partida);
 	}
-	
-	/**
-	 * Calcula horário local dado horário UTC e UTC do Aeroporto 
-	 * 
-	 * @param utc
-	 * @param horario
-	 * 
-	 * @return
-	 */
+
 	private Date calcularHorarioLocal(String utc, Date horario) {
 		Date horarioChegadaLocalDate= null;
 		if (utc != null && !"".equals(utc) && horario != null) {
@@ -126,5 +122,5 @@ public class VooDTO {
 		}
 		return horarioChegadaLocalDate;
 	}
-
+	
 }

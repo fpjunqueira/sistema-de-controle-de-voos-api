@@ -1,8 +1,9 @@
 package org.controlador.api.repository;
 
-import org.controlador.api.domain.Piloto;
+import org.controlador.api.domain.Aeroporto;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AeroportoRepository {
+public interface AeroportoRepository extends JpaRepository<Aeroporto, Long> {
 
-	public Piloto findById(Long id);
+	public Aeroporto findById(Long id);
 }

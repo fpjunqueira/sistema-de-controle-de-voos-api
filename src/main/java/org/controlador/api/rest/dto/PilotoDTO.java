@@ -6,8 +6,18 @@ public class PilotoDTO {
 	private String nome;
 	private String documento;
 	private String cma;
-
 	private int horasDeVoo;
+
+	public PilotoDTO() {
+	}
+	
+	public PilotoDTO(Long id, String nome, String documento, String cma, int horasDeVoo) {
+		this.id = id;
+		this.nome = nome;
+		this.documento = documento;
+		this.cma = cma;
+		this.horasDeVoo = horasDeVoo;
+	}
 
 	public Long getId() {
 		return id;

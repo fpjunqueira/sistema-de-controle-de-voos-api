@@ -12,6 +12,9 @@ public class AeroportoDTO {
 	private String utc;
 	private Double latitude;
 	private Double longitude;
+	
+	public AeroportoDTO() {
+	}
 
 	public Long getId() {
 		return id;

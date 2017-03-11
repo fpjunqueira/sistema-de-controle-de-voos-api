@@ -14,5 +14,7 @@ public interface VooRepository extends JpaRepository<Voo, Long> {
 
 	@Query("select v from Voo v where v.partida >= :partida and v.chegada <= :chegada")
 	public List<Voo> findByHorarios(@Param("partida") Date partida, @Param("chegada") Date chegada);
+	
+//	public List<Voo> findByPGerateHorarios(@Param("partida") Date partida, @Param("chegada") Date chegada);
 
 }

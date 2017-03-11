@@ -6,28 +6,23 @@ import java.util.List;
 import org.controlador.api.domain.Aviao;
 import org.controlador.api.rest.adapter.IAdapter;
 import org.controlador.api.rest.dto.AviaoDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AviaoAdapter implements IAdapter<Aviao, AviaoDTO>{
 
 	@Override
 	public Aviao toDomain(AviaoDTO dto) {
 		Aviao aviao = new Aviao();
-		aviao.setAno(dto.getAno());
-		aviao.setFabricante(dto.getFabricante());
-		aviao.setId(dto.getId());
-		aviao.setModelo(dto.getModelo());
-		aviao.setRegistro(dto.getRegistro());
+		BeanUtils.copyProperties(dto, aviao);
 		return aviao;
 	}
 
 	@Override
 	public AviaoDTO toDto(Aviao domain) {
 		AviaoDTO aviao = new AviaoDTO();
-		aviao.setAno(domain.getAno());
-		aviao.setFabricante(domain.getFabricante());
-		aviao.setId(domain.getId());
-		aviao.setModelo(domain.getModelo());
-		aviao.setRegistro(domain.getRegistro());
+		BeanUtils.copyProperties(domain, aviao);
 		return aviao;
 	}
 

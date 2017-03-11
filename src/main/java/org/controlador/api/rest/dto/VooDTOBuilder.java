@@ -4,11 +4,12 @@ import java.util.Date;
 
 public class VooDTOBuilder {
 	
-	private VooDTO vooDTO = new VooDTO();
+	private VooDTO vooDTO;
 	
 	public VooDTOBuilder() {
+		this.vooDTO = new VooDTO();
 	}
-	
+
 	public VooDTOBuilder setHorarios(Date horarioPartida, Date horarioChegada) {
 		this.vooDTO.setPartida(horarioPartida);
 		this.vooDTO.setChegada(horarioChegada);

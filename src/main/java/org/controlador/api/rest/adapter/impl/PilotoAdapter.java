@@ -6,28 +6,23 @@ import java.util.List;
 import org.controlador.api.domain.Piloto;
 import org.controlador.api.rest.adapter.IAdapter;
 import org.controlador.api.rest.dto.PilotoDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PilotoAdapter implements IAdapter<Piloto, PilotoDTO>{
 
 	@Override
 	public Piloto toDomain(PilotoDTO dto) {
 		Piloto piloto = new Piloto();
-		piloto.setNome(dto.getNome());
-		piloto.setCma(dto.getCma());
-		piloto.setDocumento(dto.getDocumento());
-		piloto.setHorasDeVoo(dto.getHorasDeVoo());
-		piloto.setId(dto.getId());
+		BeanUtils.copyProperties(dto, piloto);
 		return piloto ;
 	}
 
 	@Override
 	public PilotoDTO toDto(Piloto domain) {
 		PilotoDTO piloto = new PilotoDTO();
-		piloto.setNome(domain.getNome());
-		piloto.setCma(domain.getCma());
-		piloto.setDocumento(domain.getDocumento());
-		piloto.setHorasDeVoo(domain.getHorasDeVoo());
-		piloto.setId(domain.getId());
+		BeanUtils.copyProperties(domain, piloto);
 		return piloto;
 	}
 

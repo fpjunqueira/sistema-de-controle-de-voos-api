@@ -6,38 +6,23 @@ import java.util.List;
 import org.controlador.api.domain.Aeroporto;
 import org.controlador.api.rest.adapter.IAdapter;
 import org.controlador.api.rest.dto.AeroportoDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AeroportoAdapter implements IAdapter<Aeroporto, AeroportoDTO> {
 
 	@Override
 	public Aeroporto toDomain(AeroportoDTO dto) {
 		Aeroporto aeroporto = new Aeroporto();
-		aeroporto.setCidade(dto.getCidade());
-		aeroporto.setIata(dto.getIata());
-		aeroporto.setIcao(dto.getIcao());
-		aeroporto.setId(dto.getId());
-		aeroporto.setLatitude(dto.getLatitude());
-		aeroporto.setLongitude(dto.getLongitude());
-		aeroporto.setNome(dto.getNome());
-		aeroporto.setPais(dto.getPais());
-		aeroporto.setUf(dto.getUf());
-		aeroporto.setUtc(dto.getUtc());
+		BeanUtils.copyProperties(dto, aeroporto);
 		return aeroporto;
 	}
 
 	@Override
 	public AeroportoDTO toDto(Aeroporto domain) {
 		AeroportoDTO aeroporto = new AeroportoDTO();
-		aeroporto.setCidade(domain.getCidade());
-		aeroporto.setIata(domain.getIata());
-		aeroporto.setIcao(domain.getIcao());
-		aeroporto.setId(domain.getId());
-		aeroporto.setLatitude(domain.getLatitude());
-		aeroporto.setLongitude(domain.getLongitude());
-		aeroporto.setNome(domain.getNome());
-		aeroporto.setPais(domain.getPais());
-		aeroporto.setUf(domain.getUf());
-		aeroporto.setUtc(domain.getUtc());
+		BeanUtils.copyProperties(domain, aeroporto);
 		return aeroporto ;
 	}
 

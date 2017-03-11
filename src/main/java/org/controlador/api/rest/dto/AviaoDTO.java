@@ -7,6 +7,17 @@ public class AviaoDTO {
 	private String fabricante;
 	private String ano;
 	private String registro;
+	
+	public AviaoDTO() {
+	}
+	
+	public AviaoDTO(Long id, String modelo, String fabricante, String ano, String registro) {
+		this.id = id;
+		this.modelo = modelo;
+		this.fabricante = fabricante;
+		this.ano = ano;
+		this.registro = registro;
+	}
 
 	public Long getId() {
 		return id;
