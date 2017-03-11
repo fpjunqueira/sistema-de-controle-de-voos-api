@@ -9,7 +9,7 @@ public class AeroportoDTO {
 	private String cidade;
 	private String uf;
 	private String pais;
-	private String utc;
+	private int utc;
 	private Double latitude;
 	private Double longitude;
 	
@@ -88,11 +88,11 @@ public class AeroportoDTO {
 		this.longitude = longitude;
 	}
 
-	public String getUtc() {
+	public int getUtc() {
 		return utc;
 	}
 
-	public void setUtc(String utc) {
+	public void setUtc(int utc) {
 		this.utc = utc;
 	}
 

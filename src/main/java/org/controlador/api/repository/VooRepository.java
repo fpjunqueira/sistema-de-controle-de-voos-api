@@ -1,6 +1,6 @@
 package org.controlador.api.repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.controlador.api.domain.Voo;
@@ -13,7 +13,7 @@ public interface VooRepository extends JpaRepository<Voo, Long> {
 	public Voo findById(Long id);
 
 	@Query("select v from Voo v where v.partida >= :partida and v.chegada <= :chegada")
-	public List<Voo> findByHorarios(@Param("partida") Date partida, @Param("chegada") Date chegada);
+	public List<Voo> findByHorarios(@Param("partida") LocalDateTime partida, @Param("chegada") LocalDateTime chegada);
 	
 //	public List<Voo> findByPGerateHorarios(@Param("partida") Date partida, @Param("chegada") Date chegada);
 

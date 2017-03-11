@@ -1,5 +1,7 @@
 package org.controlador.api.rest.controller;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.controlador.api.service.VooService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +33,16 @@ public class VooController {
 
 	@GetMapping
 	public List<VooDTO> list(
-			@RequestParam(value = "decolagem", required = false) Date decolagem,
-			@RequestParam(value = "pouso", required = false) Date pouso) {
+			@RequestParam(value = "decolagem", required = false) LocalDateTime decolagem,
+			@RequestParam(value = "pouso", required = false) LocalDateTime pouso) {
 		LOG.info("Buscando voos com decolagem " + decolagem + "e chegada" + pouso);
-		List<VooDTO> todos = vooAdapter.toListDto(service.listarVoosPorHorarios(decolagem, pouso));
+		
+		List<VooDTO> todos = new ArrayList<VooDTO>();
+		if (StringUtils.isEmpty(decolagem) || StringUtils.isEmpty(pouso)) {
+			todos = vooAdapter.toListDto(service.listarVoos());
+		} else {
+			todos = vooAdapter.toListDto(service.listarVoosPorHorarios(decolagem, pouso));
+		}
 		LOG.info("Retornando voos com decolagem " + decolagem + "e chegada" + pouso);
 		return todos;
 

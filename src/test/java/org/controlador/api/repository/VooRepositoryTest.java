@@ -1,8 +1,8 @@
 package org.controlador.api.repository;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.controlador.api.domain.Voo;
@@ -21,8 +21,8 @@ public class VooRepositoryTest {
 
 	@Autowired
 	private VooRepository repository;
-	private Date partida;
-	private Date chegada;
+	private LocalDateTime partida;
+	private LocalDateTime chegada;
 	
 	@Test
 	public void deveBuscarListaDeVoosPorHorarioDeDecolagemEPouso() {

@@ -1,6 +1,11 @@
-package org.controlador.api.rest.dto;
+package org.controlador.api.rest.dto.builder;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import org.controlador.api.rest.dto.AeroportoDTO;
+import org.controlador.api.rest.dto.AviaoDTO;
+import org.controlador.api.rest.dto.PilotoDTO;
+import org.controlador.api.rest.dto.VooDTO;
 
 public class VooDTOBuilder {
 	
@@ -10,18 +15,18 @@ public class VooDTOBuilder {
 		this.vooDTO = new VooDTO();
 	}
 
-	public VooDTOBuilder setHorarios(Date horarioPartida, Date horarioChegada) {
+	public VooDTOBuilder setHorarios(LocalDateTime horarioPartida, LocalDateTime horarioChegada) {
 		this.vooDTO.setPartida(horarioPartida);
 		this.vooDTO.setChegada(horarioChegada);
 		return this;
 	}
 	
-	public VooDTOBuilder setHorarioPartida(Date horarioPartida) {
+	public VooDTOBuilder setHorarioPartida(LocalDateTime horarioPartida) {
 		this.vooDTO.setPartida(horarioPartida);
 		return this;
 	}
 	
-	public VooDTOBuilder setHorarioChegada(Date horarioChegada) {
+	public VooDTOBuilder setHorarioChegada(LocalDateTime horarioChegada) {
 		this.vooDTO.setChegada(horarioChegada);
 		return this;
 	}

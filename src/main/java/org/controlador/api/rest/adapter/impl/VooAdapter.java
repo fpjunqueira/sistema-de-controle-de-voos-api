@@ -54,7 +54,7 @@ public class VooAdapter implements IAdapter<Voo, VooDTO> {
 	@Override
 	public VooDTO toDto(Voo domain) {
 		VooDTO voo = new VooDTO();
-		String[] ignorarPropriedades = {"aviao"};
+		String[] ignorarPropriedades = {"aviao", "piloto", "origem", "destino", "status"};
 		BeanUtils.copyProperties(domain, voo, ignorarPropriedades);
 		voo.setPiloto(pilotoAdapter.toDto(domain.getPiloto()));
 		voo.setAviao(aviaoAdapter.toDto(domain.getAviao()));

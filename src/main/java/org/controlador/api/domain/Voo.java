@@ -1,9 +1,10 @@
 package org.controlador.api.domain;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.controlador.api.converter.LocalDateTimeConverter;
 
 @Entity
 @Table(name = "voo")
@@ -26,11 +27,13 @@ public class Voo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@JsonIgnore
-	private Date partida;
+	@Column
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime partida;
 
-	@JsonIgnore
-	private Date chegada;
+	@Column
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime chegada;
 
 	@OneToOne
 	@JoinColumn(name = "id_piloto", nullable = false)
@@ -59,19 +62,19 @@ public class Voo implements Serializable {
 		this.id = id;
 	}
 
-	public Date getPartida() {
+	public LocalDateTime getPartida() {
 		return partida;
 	}
 
-	public void setPartida(Date horarioPartida) {
+	public void setPartida(LocalDateTime horarioPartida) {
 		this.partida = horarioPartida;
 	}
 
-	public Date getChegada() {
+	public LocalDateTime getChegada() {
 		return chegada;
 	}
 
-	public void setChegada(Date horarioChegada) {
+	public void setChegada(LocalDateTime horarioChegada) {
 		this.chegada = horarioChegada;
 	}
 

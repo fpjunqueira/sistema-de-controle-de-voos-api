@@ -1,16 +1,14 @@
 package org.controlador.api.rest.dto;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class VooDTO {
 
 	private Long id;
 
-	private Date partida;
-	private Date chegada;
+	private LocalDateTime partida;
+	private LocalDateTime chegada;
 	private PilotoDTO piloto;
 	private AviaoDTO aviao;
 	private AeroportoDTO origem;
@@ -28,19 +26,19 @@ public class VooDTO {
 		this.id = id;
 	}
 
-	public Date getPartida() {
+	public LocalDateTime getPartida() {
 		return partida;
 	}
 
-	public void setPartida(Date partida) {
+	public void setPartida(LocalDateTime partida) {
 		this.partida = partida;
 	}
 
-	public Date getChegada() {
+	public LocalDateTime getChegada() {
 		return chegada;
 	}
 
-	public void setChegada(Date chegada) {
+	public void setChegada(LocalDateTime chegada) {
 		this.chegada = chegada;
 	}
 
@@ -84,8 +82,9 @@ public class VooDTO {
 		this.status = status;
 	}
 
-	private String formatarData(Date data) {
-		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data);
+	private String formatarData(LocalDateTime data) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		return data.format(formatter);
 	}
 
 	public String getHorarioDeChegadaLocal() {
@@ -104,23 +103,8 @@ public class VooDTO {
 		return formatarData(this.partida);
 	}
 
-	private Date calcularHorarioLocal(String utc, Date horario) {
-		Date horarioChegadaLocalDate= null;
-		if (utc != null && !"".equals(utc) && horario != null) {
-			String split = utc.split(":")[0];
-			int valor = Integer.parseInt(split.substring(utc.split(":")[0].length() - 1));
-			
-			Calendar horarioChegadaLocalCalendar = Calendar.getInstance();
-			horarioChegadaLocalCalendar.setTime(horario);
-			
-			if (utc.contains("+")) {
-				horarioChegadaLocalCalendar.add(Calendar.HOUR_OF_DAY, valor);
-			} else {
-				horarioChegadaLocalCalendar.add(Calendar.HOUR_OF_DAY, -valor);
-			}
-			horarioChegadaLocalDate = horarioChegadaLocalCalendar.getTime();
-		}
-		return horarioChegadaLocalDate;
+	private LocalDateTime calcularHorarioLocal(int utc, LocalDateTime horario) {
+		return horario.plusHours(utc);
 	}
 	
 }
