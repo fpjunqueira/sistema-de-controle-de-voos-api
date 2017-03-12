@@ -18,17 +18,17 @@ public class VooService {
 	private final Logger LOG = LoggerFactory.getLogger(VooService.class);
 	
 	@Autowired
-	private VooRepository repository;
+	private VooRepository vooRepository;
 
 	public List<Voo> listarVoos(){
 		LOG.debug("Listar Voo service");
-		return repository.findAll();
+		return vooRepository.findAll();
 	}
 
 	public Voo getVoo(Long id) {
 		Assert.notNull(id, "Deve informar id");
 		LOG.debug("Consultar Voo service");
-		return repository.findById(id);		
+		return vooRepository.findById(id);		
 	}
 
 	public List<Voo> listarVoosPorHorarios(LocalDateTime decolagem, LocalDateTime pouso) {
@@ -38,6 +38,6 @@ public class VooService {
 		if (decolagem.isAfter(pouso)) {
 			throw new IllegalAddException("Hora de descolagem deve ser menor que hora de pouso do voo");
 		}	
-		return repository.findByHorarios(decolagem, pouso);
+		return vooRepository.findByHorarios(decolagem, pouso);
 	}	
 }

@@ -1,58 +1,67 @@
 package org.controlador.api.domain.builder;
 
-import org.controlador.api.rest.dto.AeroportoDTO;
+import org.controlador.api.domain.Aeroporto;
 
 public class AeroportoBuilder {
 
-	private AeroportoDTO dto;
-	
+	private Aeroporto aeroporto;
+
 	public AeroportoBuilder() {
-		this.dto = new AeroportoDTO();
+		this.aeroporto = new Aeroporto();
 	}
 
-	public AeroportoBuilder setId(Long id) {
-		this.dto.setId(id);
-		return this;
-	}
-
-	public AeroportoBuilder setIata(String iata) {
-		this.dto.setIata(iata);
-		return this;
-	}
-	
-	public AeroportoBuilder setIcao(String icao) {
-		this.dto.setIcao(icao);
-		return this;
-	}
-	
-	public AeroportoBuilder setNome(String nome) {
-		this.dto.setNome(nome);
+	public AeroportoBuilder withId(Long id) {
+		this.aeroporto.setId(id);
 		return this;
 	}
 
-	public AeroportoBuilder setCidade(String cidade) {
-		this.dto.setCidade(cidade);
+	public AeroportoBuilder withIata(String iata) {
+		this.aeroporto.setIata(iata);
 		return this;
 	}
 
-	public AeroportoBuilder setUf(String uf) {
-		this.dto.setUf(uf);
+	public AeroportoBuilder withIcao(String icao) {
+		this.aeroporto.setIcao(icao);
 		return this;
 	}
 
-	public AeroportoBuilder setPais(String pais) {
-		this.dto.setPais(pais);
+	public AeroportoBuilder withNome(String nome) {
+		this.aeroporto.setNome(nome);
 		return this;
 	}
-	
-	public AeroportoBuilder setUtc(int utc) {
-		this.dto.setUtc(utc);
+
+	public AeroportoBuilder withCidade(String cidade) {
+		this.aeroporto.setCidade(cidade);
 		return this;
 	}
-	
-	public AeroportoBuilder setLatitude(Double latitude) {
-		this.dto.setLatitude(latitude);
+
+	public AeroportoBuilder withUf(String uf) {
+		this.aeroporto.setUf(uf);
 		return this;
 	}
-	
+
+	public AeroportoBuilder withPais(String pais) {
+		this.aeroporto.setPais(pais);
+		return this;
+	}
+
+	public AeroportoBuilder withUtc(int utc) {
+		this.aeroporto.setUtc(utc);
+		return this;
+	}
+
+	public AeroportoBuilder withLatitude(Double latitude) {
+		this.aeroporto.setLatitude(latitude);
+		return this;
+	}
+
+	public AeroportoBuilder withLongitude(Double longitude) {
+		this.aeroporto.setLongitude(longitude);
+		return this;
+	}
+
+	public Aeroporto create() {
+		return this.aeroporto;
+	}
+
 }

@@ -118,4 +118,68 @@ public class Voo implements Serializable {
 		this.status = status;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((aviao == null) ? 0 : aviao.hashCode());
+		result = prime * result + ((chegada == null) ? 0 : chegada.hashCode());
+		result = prime * result + ((destino == null) ? 0 : destino.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((origem == null) ? 0 : origem.hashCode());
+		result = prime * result + ((partida == null) ? 0 : partida.hashCode());
+		result = prime * result + ((piloto == null) ? 0 : piloto.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Voo other = (Voo) obj;
+		if (aviao == null) {
+			if (other.aviao != null)
+				return false;
+		} else if (!aviao.equals(other.aviao))
+			return false;
+		if (chegada == null) {
+			if (other.chegada != null)
+				return false;
+		} else if (!chegada.equals(other.chegada))
+			return false;
+		if (destino == null) {
+			if (other.destino != null)
+				return false;
+		} else if (!destino.equals(other.destino))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (origem == null) {
+			if (other.origem != null)
+				return false;
+		} else if (!origem.equals(other.origem))
+			return false;
+		if (partida == null) {
+			if (other.partida != null)
+				return false;
+		} else if (!partida.equals(other.partida))
+			return false;
+		if (piloto == null) {
+			if (other.piloto != null)
+				return false;
+		} else if (!piloto.equals(other.piloto))
+			return false;
+		if (status != other.status)
+			return false;
+		return true;
+	}
+
 }

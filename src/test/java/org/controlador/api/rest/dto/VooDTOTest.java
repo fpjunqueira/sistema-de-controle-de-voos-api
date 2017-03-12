@@ -85,7 +85,7 @@ public class VooDTOTest {
 	}
 	
 	private LocalDateTime getHorarioUTC(int ano, Month month, int dia, int hora, int min, int seg) {
-		return  LocalDateTime.of(ano, month, dia, hora, min, seg);
+		return LocalDateTime.of(ano, month, dia, hora, min, seg);
 	}
 
 }

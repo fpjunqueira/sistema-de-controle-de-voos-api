@@ -38,7 +38,7 @@ public class Aeroporto implements Serializable {
 	private String pais;
 	
 	@NotNull
-	private String utc;
+	private int utc;
 	
 	@NotNull
 	private Double latitude;
@@ -94,11 +94,11 @@ public class Aeroporto implements Serializable {
 		this.pais = pais;
 	}
 
-	public String getUtc() {
+	public int getUtc() {
 		return utc;
 	}
 
-	public void setUtc(String fusoHorario) {
+	public void setUtc(int fusoHorario) {
 		this.utc = fusoHorario;
 	}
 
@@ -126,4 +126,80 @@ public class Aeroporto implements Serializable {
 		this.longitude = longitude;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
+		result = prime * result + ((iata == null) ? 0 : iata.hashCode());
+		result = prime * result + ((icao == null) ? 0 : icao.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((latitude == null) ? 0 : latitude.hashCode());
+		result = prime * result + ((longitude == null) ? 0 : longitude.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
+		result = prime * result + ((uf == null) ? 0 : uf.hashCode());
+		result = prime * result + utc;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aeroporto other = (Aeroporto) obj;
+		if (cidade == null) {
+			if (other.cidade != null)
+				return false;
+		} else if (!cidade.equals(other.cidade))
+			return false;
+		if (iata == null) {
+			if (other.iata != null)
+				return false;
+		} else if (!iata.equals(other.iata))
+			return false;
+		if (icao == null) {
+			if (other.icao != null)
+				return false;
+		} else if (!icao.equals(other.icao))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (latitude == null) {
+			if (other.latitude != null)
+				return false;
+		} else if (!latitude.equals(other.latitude))
+			return false;
+		if (longitude == null) {
+			if (other.longitude != null)
+				return false;
+		} else if (!longitude.equals(other.longitude))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (pais == null) {
+			if (other.pais != null)
+				return false;
+		} else if (!pais.equals(other.pais))
+			return false;
+		if (uf == null) {
+			if (other.uf != null)
+				return false;
+		} else if (!uf.equals(other.uf))
+			return false;
+		if (utc != other.utc)
+			return false;
+		return true;
+	}
+	
 }
