@@ -1,6 +1,5 @@
 package org.controlador.api.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.controlador.api.domain.Piloto;
@@ -21,8 +20,7 @@ public class PilotoService {
 	
 	public List<Piloto> listarPilotos() {
 		LOG.debug("Listar pilotos service");
-		List<Piloto> pilotos = (ArrayList<Piloto>) repository.findAll();
-		return pilotos;
+		return repository.findAll();
 	}
 	
 	public Piloto getPiloto(Long id) {

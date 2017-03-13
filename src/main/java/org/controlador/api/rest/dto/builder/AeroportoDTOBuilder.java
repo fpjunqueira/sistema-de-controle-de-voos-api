@@ -55,4 +55,12 @@ public class AeroportoDTOBuilder {
 		return this;
 	}
 	
+	public AeroportoDTOBuilder withLongitude(Double longitude) {
+		this.aeroporto.setLongitude(longitude);
+		return this;
+	}
+
+	public AeroportoDTO create() {
+		return this.aeroporto;
+	}
 }

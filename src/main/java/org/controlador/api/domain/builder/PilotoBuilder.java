@@ -25,12 +25,12 @@ public class PilotoBuilder {
 		return this;
 	}
 
-	public PilotoBuilder withCMA(String cma) {
+	public PilotoBuilder withCma(String cma) {
 		this.piloto.setCma(cma);
 		return this;
 	}
 
-	public PilotoBuilder withHorasVoo(int horasDeVoo) {
+	public PilotoBuilder withHorasDeVoo(int horasDeVoo) {
 		this.piloto.setHorasDeVoo(horasDeVoo);
 		return this;
 	}

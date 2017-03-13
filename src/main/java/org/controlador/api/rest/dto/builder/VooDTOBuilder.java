@@ -14,45 +14,50 @@ public class VooDTOBuilder {
 	public VooDTOBuilder() {
 		this.vooDTO = new VooDTO();
 	}
+	
+	public VooDTOBuilder withId(Long id) {
+		this.vooDTO.setId(id);
+		return this;
+	} 
 
-	public VooDTOBuilder setHorarios(LocalDateTime horarioPartida, LocalDateTime horarioChegada) {
+	public VooDTOBuilder withHorarios(LocalDateTime horarioPartida, LocalDateTime horarioChegada) {
 		this.vooDTO.setPartida(horarioPartida);
 		this.vooDTO.setChegada(horarioChegada);
 		return this;
 	}
 	
-	public VooDTOBuilder setHorarioPartida(LocalDateTime horarioPartida) {
+	public VooDTOBuilder withHorarioPartida(LocalDateTime horarioPartida) {
 		this.vooDTO.setPartida(horarioPartida);
 		return this;
 	}
 	
-	public VooDTOBuilder setHorarioChegada(LocalDateTime horarioChegada) {
+	public VooDTOBuilder withHorarioChegada(LocalDateTime horarioChegada) {
 		this.vooDTO.setChegada(horarioChegada);
 		return this;
 	}
 	
-	public VooDTOBuilder setOrigemDestino(AeroportoDTO origem, AeroportoDTO destino) {
+	public VooDTOBuilder withOrigemDestino(AeroportoDTO origem, AeroportoDTO destino) {
 		this.vooDTO.setOrigem(origem);
 		this.vooDTO.setDestino(destino);
 		return this;
 	}
 	
-	public VooDTOBuilder setAviao(AviaoDTO aviao) {
+	public VooDTOBuilder withAviao(AviaoDTO aviao) {
 		this.vooDTO.setAviao(aviao);
 		return this;
 	}
 	
-	public VooDTOBuilder setPiloto(PilotoDTO piloto) {
+	public VooDTOBuilder withPiloto(PilotoDTO piloto) {
 		vooDTO.setPiloto(piloto);
 		return this;
 	}
 	
-	public VooDTOBuilder setPiloto(String status) {
+	public VooDTOBuilder withStatus(String status) {
 		vooDTO.setStatus(status);
 		return this;
 	}
 	
-	public VooDTO build() {
+	public VooDTO create() {
 		return this.vooDTO;
 	}
 

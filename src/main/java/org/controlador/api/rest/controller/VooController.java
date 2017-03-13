@@ -2,7 +2,6 @@ package org.controlador.api.rest.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.controlador.api.rest.adapter.impl.VooAdapter;

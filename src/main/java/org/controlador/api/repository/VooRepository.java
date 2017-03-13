@@ -12,9 +12,7 @@ public interface VooRepository extends JpaRepository<Voo, Long> {
 
 	public Voo findById(Long id);
 
-	@Query("select v from Voo v where v.partida >= :partida and v.chegada <= :chegada")
+	@Query("select v from Voo v where v.partida >= :partida and v.partida <= :chegada")
 	public List<Voo> findByHorarios(@Param("partida") LocalDateTime partida, @Param("chegada") LocalDateTime chegada);
-	
-//	public List<Voo> findByPGerateHorarios(@Param("partida") Date partida, @Param("chegada") Date chegada);
 
 }

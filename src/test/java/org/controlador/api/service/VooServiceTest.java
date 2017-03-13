@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class VooServiceTest {
 	
-	private static final Long ID = 1L;
+	private static final Long ID_AVIAO = 1L;
 	private static final Long ID_VOO_1 = 1L;
 	private static final Long ID_VOO_2 = 2L;
 	private static final Long ID_AEROPORTO_ORIGEM = 2l;
@@ -42,6 +43,10 @@ public class VooServiceTest {
 	private static final Double LONGITUDE_AEROPORTO_ORIGEM = -5888.16;
 	private static final Double LONGITUDE_AEROPORTO_DESTINO = -2000.1;
 	private static final Double LATITUDE_AEROPORTO_DESTINO = 10000.0;
+	private static final String FABRICANTE = "Embraer";
+	private static final String REGISTRO_AVIAO = "ANAC-589774882";
+	private static final String ANO_AVIAO = "2005";
+	private static final String MODELO_AVIAO = "Super Tucano";
 	private static final String CMA_PILOTO = "SP-360589771";
 	private static final String DOCUMENTO_PILOTO = "55478155982";
 	private static final String NOME_PILOTO = "Antônio José do Oliveira";
@@ -60,7 +65,9 @@ public class VooServiceTest {
 	private static final LocalDateTime DECOLAGEM_VOO_2 = LocalDateTime.of(2016, Month.DECEMBER, 31, 11, 40, 00);
 	private static final LocalDateTime POUSO_VOO_2 = LocalDateTime.of(2016, Month.DECEMBER, 31, 11, 40, 00);
 	private static final LocalDateTime FIND_BY_HORARIOS_DECOLAGEM = LocalDateTime.of(2017, Month.JANUARY, 1, 17, 30, 45);
-	private static final LocalDateTime FIND_BY_HORARIOS_POUSO = LocalDateTime.of(2017, Month.JANUARY, 1, 17, 30, 45);
+	private static final LocalDateTime FIND_BY_HORARIOS_POUSO = LocalDateTime.of(2017, Month.JANUARY, 1, 19, 45, 00);
+	private static final LocalDateTime FIND_BY_HORARIOS_DECOLAGEM_VOO_NAO_ENCONTRADO = LocalDateTime.of(2020, Month.JANUARY, 1, 19, 45, 00);
+	private static final LocalDateTime FIND_BY_HORARIOS_POUSO_VOO_NAO_ENCONTRADO = LocalDateTime.of(2020, Month.JANUARY, 1, 19, 45, 00);
 
 	@MockBean
 	private VooRepository repository;
@@ -71,8 +78,59 @@ public class VooServiceTest {
 	@Before
 	public void init() {
 		given(this.repository.findAll()).willReturn(getListVooMock());
-		given(this.repository.findById(ID)).willReturn(getListVooMock().get(0));
-		given(this.repository.findByHorarios(FIND_BY_HORARIOS_DECOLAGEM, FIND_BY_HORARIOS_POUSO)).willReturn(getListVooMock());
+		given(this.repository.findById(ID_VOO_1)).willReturn(getListVooMock().get(0));
+		given(this.repository.findById(ID_VOO_2)).willReturn(getListVooMock().get(1));
+		given(this.repository.findByHorarios(FIND_BY_HORARIOS_DECOLAGEM, FIND_BY_HORARIOS_POUSO))
+				.willReturn(getListVooMock());
+		given(this.repository.findByHorarios(FIND_BY_HORARIOS_DECOLAGEM_VOO_NAO_ENCONTRADO,
+				FIND_BY_HORARIOS_POUSO_VOO_NAO_ENCONTRADO)).willReturn(new ArrayList<Voo>());
+	}
+	
+	@Test
+	public void deveListarVoos() {
+		List<Voo> voos = service.listarVoos();
+		assertListaDeVoos(voos);
+	}
+
+	@Test
+	public void deveListarVoosPorHorario() {
+		List<Voo> voos = service.listarVoosPorHorarios(FIND_BY_HORARIOS_DECOLAGEM, FIND_BY_HORARIOS_POUSO);
+		assertListaDeVoos(voos);
+	}
+	
+	@Test
+	public void deveRetornarListaVaziaDeVoosPorHorarioNaoEncontrado() {
+		List<Voo> voos = service.listarVoosPorHorarios(FIND_BY_HORARIOS_DECOLAGEM_VOO_NAO_ENCONTRADO,
+				FIND_BY_HORARIOS_POUSO_VOO_NAO_ENCONTRADO);
+		assertThat(voos).isEmpty();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deveValidarDataDecolagemMaiorQueDataPouso() {
+		service.listarVoosPorHorarios(FIND_BY_HORARIOS_POUSO, FIND_BY_HORARIOS_DECOLAGEM);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deveValidarDecolagemObrigatoio() {
+		service.listarVoosPorHorarios(null, FIND_BY_HORARIOS_POUSO);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deveValidarPousoObrigatorio() {
+		service.listarVoosPorHorarios(FIND_BY_HORARIOS_DECOLAGEM, null);
+	}
+	
+	@Test
+	public void deveRetornarVoo() {
+		Voo voo1 = service.getVoo(ID_VOO_1);
+		assertVoo1(voo1);
+		Voo voo2 = service.getVoo(ID_VOO_2);
+		assertVoo2(voo2);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deveValidarIdAoBuscarVoo() {
+		service.getVoo(null);
 	}
 	
 	private List<Voo> getListVooMock() {
@@ -104,8 +162,8 @@ public class VooServiceTest {
 				.withId(ID_PILOTO)
 				.withNome(NOME_PILOTO)
 				.withDocumento(DOCUMENTO_PILOTO)
-				.withCMA(CMA_PILOTO)
-				.withHorasVoo(HORAS_DE_VOO_PILOTO)
+				.withCma(CMA_PILOTO)
+				.withHorasDeVoo(HORAS_DE_VOO_PILOTO)
 				.create();
 	}
 
@@ -139,27 +197,23 @@ public class VooServiceTest {
 
 	private Aviao getAviaoMock() {
 		return new AviaoBuilder()
-				.withId(1L)
-				.withModelo("Super Tucano")
-				.withAno("2005")
-				.withRegistro("ANAC-589774882")
-				.withFabricante("Embraer")
+				.withId(ID_AVIAO)
+				.withModelo(MODELO_AVIAO)
+				.withAno(ANO_AVIAO)
+				.withRegistro(REGISTRO_AVIAO)
+				.withFabricante(FABRICANTE)
 				.create();
 	}
 
-	@Test
-	public void deveListarVoos() {
-		List<Voo> voos = service.listarVoos();
-		assertListaDeVoos(voos, 0);
-	}
-
-	private void assertListaDeVoos(List<Voo> voos, int index) {
+	private void assertListaDeVoos(List<Voo> voos) {
 		assertThat(voos).isNotNull();
 		assertThat(voos.size()).isEqualTo(2);
-		assertVoo1(voos.get(index));
+		assertVoo1(voos.get(0));
+		assertVoo2(voos.get(1));
 	}
 
 	private void assertVoo1(Voo voo) {
+		assertThat(voo.getId()).isNotNull();
 		assertThat(voo.getPartida()).isEqualTo(DECOLAGEM_VOO_1);		
 		assertThat(voo.getChegada()).isEqualTo(POUSO_VOO_1);
 		assertThat(voo.getPiloto()).isEqualTo(getPilotoMock());
@@ -168,34 +222,14 @@ public class VooServiceTest {
 		assertThat(voo.getAviao()).isEqualTo(getAviaoMock());
 	}
 	
-	@Test
-	public void deveListarVoosPorHorario() {
-		List<Voo> voos = service.listarVoosPorHorarios(FIND_BY_HORARIOS_DECOLAGEM, FIND_BY_HORARIOS_POUSO);
-		assertListaDeVoos(voos, 0);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void deveValidarDataDecolagemMainsQueDataPouso() {
-		List<Voo> voos = service.listarVoosPorHorarios(FIND_BY_HORARIOS_POUSO, FIND_BY_HORARIOS_DECOLAGEM);
-		assertListaDeVoos(voos, 0);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void deveValidarDecolagemObrigatoio() {
-		List<Voo> voos = service.listarVoosPorHorarios(null, FIND_BY_HORARIOS_POUSO);
-		assertListaDeVoos(voos, 0);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void deveValidarPousoObrigatorio() {
-		List<Voo> voos = service.listarVoosPorHorarios(FIND_BY_HORARIOS_DECOLAGEM, null);
-		assertListaDeVoos(voos, 0);
-	}
-	
-	@Test
-	public void deveRetornarVoo() {
-		Voo voo = service.getVoo(ID_VOO_1);
-		assertVoo1(voo);
+	private void assertVoo2(Voo voo) {
+		assertThat(voo.getId()).isNotNull();
+		assertThat(voo.getPartida()).isEqualTo(DECOLAGEM_VOO_1);		
+		assertThat(voo.getChegada()).isEqualTo(POUSO_VOO_2);
+		assertThat(voo.getPiloto()).isEqualTo(getPilotoMock());
+		assertThat(voo.getOrigem()).isEqualTo(getOrigemMock());
+		assertThat(voo.getDestino()).isEqualTo(getDestinoMock());
+		assertThat(voo.getAviao()).isEqualTo(getAviaoMock());
 	}
 	
 }
