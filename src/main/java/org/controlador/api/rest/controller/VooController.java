@@ -1,6 +1,7 @@
 package org.controlador.api.rest.controller;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,21 +33,26 @@ public class VooController {
 
 	@GetMapping
 	public List<VooDTO> list(
-			@RequestParam(value = "decolagem", required = false) LocalDateTime decolagem,
-			@RequestParam(value = "pouso", required = false) LocalDateTime pouso) {
-		LOG.info("Buscando voos com decolagem " + decolagem + "e chegada" + pouso);
+			@RequestParam(value = "dataInicial", required = false) String dataInicial,
+			@RequestParam(value = "dataFinal", required = false) String dataFinal) {
+		LOG.info("Buscando voos com decolagem entre " + dataInicial + " e " + dataFinal);
 		
 		List<VooDTO> todos = new ArrayList<VooDTO>();
-		if (StringUtils.isEmpty(decolagem) || StringUtils.isEmpty(pouso)) {
+		if (StringUtils.isEmpty(dataInicial) || StringUtils.isEmpty(dataFinal)) {
 			todos = vooAdapter.toListDto(service.listarVoos());
 		} else {
-			todos = vooAdapter.toListDto(service.listarVoosPorHorarios(decolagem, pouso));
+			todos = vooAdapter.toListDto(service.listarVoosPorHorarios(getLocalDateTime(dataInicial), getLocalDateTime(dataFinal)));
 		}
-		LOG.info("Retornando voos com decolagem " + decolagem + "e chegada" + pouso);
+		LOG.info("Retornando voos com decolagem " + dataInicial + "e chegada" + dataFinal);
 		return todos;
 
 	}
 	
+	private LocalDateTime getLocalDateTime(String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		return LocalDateTime.parse(date, formatter);
+	}
+
 	@GetMapping(path = "/{id}")
 	public VooDTO get(@PathVariable Long id) {
 		LOG.info("Buscando voo id " + id);
