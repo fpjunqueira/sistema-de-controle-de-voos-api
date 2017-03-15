@@ -1,0 +1,10 @@
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(1, 'José de Alencar', '554778112', 'ANAC-784557884', 800);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(2, 'Franciso Ribeiro', '55888944253', 'ANAC-998554771', 889);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(3, 'Ismael Siva', '554778112', 'ANAC-556884778', 630);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(4, 'Antônio Gular', '55888944253', 'ANAC-784557884', 500);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(5, 'Ana Carolina de Paula', '554778112', 'ANAC-784557884', 752);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(6, 'Moacir Silva', '55888944253', 'ANAC-556884778', 887);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(7, 'Gloria Maria Menezes', '554778112', 'ANAC-784557884', 884);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(8, 'Alberto de Oliveira', '554778112', 'ANAC-998554771', 225);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(9, 'Fausto Pereira', '789452114', 'ANAC-556884778', 556);
+INSERT INTO `voosapi`.`piloto` (`id`, `nome`, `documento`, `cma`, `horas_de_voo`) VALUES(10, 'Franciso Alberto', '554778112', 'ANAC-784557884', 895);

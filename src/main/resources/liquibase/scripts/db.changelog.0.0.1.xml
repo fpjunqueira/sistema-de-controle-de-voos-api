@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="felipe" id="1">
+		<createTable tableName="piloto">
+
+			<column name="id" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+
+			<column name="nome" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="documento" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="cma" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="horas_de_voo" type="BIGSERIAL">
+				<constraints primaryKey="false" />
+			</column>
+
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="piloto" />
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="felipe" id="2">
+		<createTable tableName="aviao">
+			
+			<column name="id" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+
+			<column name="modelo" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="fabricante" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="ano" type="VARCHAR(4)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="registro" type="VARCHAR(20)">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="aviao" />
+		</rollback>
+	</changeSet>
+	
+	
+	<changeSet author="felipe" id="3">
+
+		<createTable tableName="aeroporto">
+			
+			<column name="id" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+			
+			<column name="iata" type="VARCHAR(5)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="icao" type="VARCHAR(5)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="nome" type="VARCHAR(250)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="cidade" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="uf" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+					
+			<column name="pais" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="utc" type="INT">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="latitude" type="FLOAT">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="longitude" type="FLOAT">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+
+		<rollback>
+			<dropTable tableName="aeroporto" />
+		</rollback>
+		
+	</changeSet>
+	
+	<changeSet author="felipe" id="4">
+
+		<createTable tableName="voo">
+			
+			<column name="id" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+			
+			<column name="partida" type="TIMESTAMP">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="chegada" type="TIMESTAMP">
+				<constraints nullable="true" />
+			</column>
+			 
+			<column name="id_piloto" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+			
+			<column name="id_aviao" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+			
+			<column name="id_aeroporto_origem" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+			
+			<column name="id_aeroporto_destino" type="BIGSERIAL">
+				<constraints primaryKey="true" />
+			</column>
+		
+			<column name="status" type="VARCHAR(20)">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+
+		<addForeignKeyConstraint baseTableName="voo"
+			baseColumnNames="id_piloto" constraintName="fk_voo_piloto"
+			referencedTableName="piloto" referencedColumnNames="id" />
+	
+		<addForeignKeyConstraint baseTableName="voo"
+			baseColumnNames="id_aviao" constraintName="fk_voo_aviao"
+			referencedTableName="aviao" referencedColumnNames="id" />
+	
+		<addForeignKeyConstraint baseTableName="voo"
+			baseColumnNames="id_aeroporto_origem" constraintName="fk_voo_aeroporto_origem"
+			referencedTableName="aeroporto" referencedColumnNames="id" />
+	          
+		<addForeignKeyConstraint baseTableName="voo"
+			baseColumnNames="id_aeroporto_destino" constraintName="fk_voo_aeroporto_destino"
+			referencedTableName="aeroporto" referencedColumnNames="id" />            
+            
+		<rollback>
+			<dropTable tableName="voo" />
+		</rollback>
+		
+	</changeSet>
+	
+</databaseChangeLog>

@@ -28,13 +28,16 @@ import org.controlador.api.rest.dto.builder.VooDTOBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class VooAdapterTest {
 
 	private static final Long ID_VOO = 1L;
@@ -61,16 +64,16 @@ public class VooAdapterTest {
 	private static final LocalDateTime CHEGADA_VOO = LocalDateTime.of(2017, Month.JANUARY, 2, 17, 30, 45);
 	
 
-	@MockBean
+	@Mock
 	private AeroportoAdapter aeroportoAdapter;
 
-	@MockBean
+	@Mock
 	private AviaoAdapter aviaoAdapter;
 
-	@MockBean
+	@Mock
 	private PilotoAdapter pilotoAdapter;
 
-	@Autowired
+	@InjectMocks
 	private VooAdapter adapter;
 
 	@Before

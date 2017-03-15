@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="felipe" id="1">
+		<sqlFile path="carga-inicial/carga-aeroportos.sql" encoding="utf8"
+			relativeToChangelogFile="true"
+			splitStatements="true" stripComments="true" />
+	</changeSet>
+	
+	<changeSet author="felipe" id="2">
+		<sqlFile path="carga-inicial/carga-pilotos.sql" encoding="utf8"
+			relativeToChangelogFile="true"
+			splitStatements="true" stripComments="true" />
+	</changeSet>
+
+	<changeSet author="felipe" id="3">
+		<sqlFile path="carga-inicial/carga-aeronaves.sql" encoding="utf8"
+			relativeToChangelogFile="true"
+			splitStatements="true" stripComments="true" />
+	</changeSet>
+				
+	<changeSet author="felipe" id="4">
+		<sqlFile path="carga-inicial/carga-voos.sql" encoding="utf8"
+			relativeToChangelogFile="true"
+			splitStatements="true" stripComments="true" />
+	</changeSet>
+	
+</databaseChangeLog>
